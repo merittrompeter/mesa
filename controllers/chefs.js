@@ -23,7 +23,6 @@ router.get("/:id/show", function(req, res){
     where: {id: req.params.id},
     include : [db.user, db.plate]
   }).then(function(chef) {
-    // console.log('***********',chef.plate)
     chef.getPlates().then(function(plates){
       res.render('chefs/show', {chef: chef, thisUser: req.session.user, plates: plates});
     });
@@ -45,12 +44,12 @@ db.user.find({
     where: {id: req.params.id}
 }).then(function(chef){
     user.addChef(chef).then(function(follow){
-      console.log('Following Chef')
+      console.log('Following Chef');
     });
   });
 res.redirect('/plates/new');
 });
-console.log('yay following')
+console.log('yay following');
 } else if  (req.body.toggle === 'unfollow'){
 db.user.find({
   where: {id: req.user.id}
@@ -59,20 +58,20 @@ db.user.find({
     where: {id: req.params.id}
 }).then(function(chef){
     user.removeChef(chef).then(function(unfollow){
-      console.log('no longer Following Chef')
+      console.log('no longer Following Chef');
     });
   });
 res.redirect('/users/index');
 });
-console.log('boo unfollowing')
+console.log('boo unfollowing');
 } else {
-  res.redirect('/plates/new')
+  res.redirect('/plates/new');
 }
 });
 
 // New Plate For A Chef
 router.get("/plates/new", function(req, res){
-        id = req.user
+        id = req.user;
         res.render('chefs/new', {
           chefId:id,
           cloudName:process.env.CLOUDINARY_CLOUD_NAME,
@@ -82,8 +81,8 @@ router.get("/plates/new", function(req, res){
 
 // Chef Posts A Post New Plate
 router.post("/plates/new", function(req, res){
-        var id = req.user.id
-        console.log(req.user)
+        var id = req.user.id;
+        console.log(req.user);
 //Cloudinary Upload Section
         // console.log('I am at create stage of plate past Cloudinary upload');
          db.chef.find({
